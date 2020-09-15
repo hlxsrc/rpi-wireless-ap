@@ -41,3 +41,43 @@ EOT
 
 # Ensure wireless operation
 sudo rfkill unblock wlan
+
+# Create hostapd configuration file
+sudo touch /etc/hostapd/hostapd.conf
+
+# Receive country code
+read -p "Write your country code (US, GB, MX) and press enter:" country
+
+# Receive operation mode
+read -p "Choose operation mode (a=5GHz, b=2.4GHz, g=2.4GHz) and press enter:" mode
+
+# Create network SSID
+read -p "Write the name of your newtork and press enter:" ssid
+
+# Create network password
+read -p "Write the password of your network" pass
+
+# Change channel according to operation mode
+if [ "$mode" = "a" ]; then
+	channel = "40"
+else
+	channel = "7"
+fi
+
+# Edit hostapd configuration file  with saved values
+sudo tee -a /etc/hostapd/hostapd.conf > /dev/null <<EOT
+country_code=${country:-US}
+interface=wlan0
+bridge=br0
+ssid=${ssid:-PiNet}
+hw_mode=${mode:-g}
+channel=${channel:-7}
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=${pass:-qawsed78}
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+EOT
