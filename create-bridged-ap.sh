@@ -33,9 +33,12 @@ EOT
 sudo systemctl enable systemd-networkd
 
 # Define bridge device IP configuration
+sudo sed -i '1s/^/# Block eth0 and wlan0 interfaces\n/' /etc/dhcpcd.conf
 sudo sed -i '1s/^/denyinterfaces wlan0 eth0\n/' /etc/dhcpcd.conf
+sudo sed -i '1s/^/ \n/' /etc/dhcpcd.conf
 sudo tee -a /etc/systemd/network/br0-member-eth0.network > /dev/null <<EOT
 
+# Let dhcpcd configure br0 via DHCP
 interface br0
 EOT
 
