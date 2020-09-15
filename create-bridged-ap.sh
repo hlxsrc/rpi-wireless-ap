@@ -81,3 +81,6 @@ wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 EOT
+
+# Reboot
+sudo systemctl reboot
