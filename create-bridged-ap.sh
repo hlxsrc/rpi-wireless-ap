@@ -38,3 +38,6 @@ sudo tee -a /etc/systemd/network/br0-member-eth0.network > /dev/null <<EOT
 
 interface br0
 EOT
+
+# Ensure wireless operation
+sudo rfkill unblock wlan
