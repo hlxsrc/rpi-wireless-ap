@@ -49,22 +49,22 @@ sudo rfkill unblock wlan
 sudo touch /etc/hostapd/hostapd.conf
 
 # Receive country code
-read -p "Write your country code (US, GB, MX) and press enter:" country
+read -p "Write your country code (US, GB, MX) and press enter: " country
 
 # Receive operation mode
-read -p "Choose operation mode (a=5GHz, b=2.4GHz, g=2.4GHz) and press enter:" mode
+read -p "Choose operation mode (a=5GHz, b=2.4GHz, g=2.4GHz) and press enter: " mode
 
 # Create network SSID
-read -p "Write the name of your newtork and press enter:" ssid
+read -p "Write the name of your newtork and press enter: " ssid
 
 # Create network password
-read -p "Write the password of your network" pass
+read -p "Write the password of your network: " pass
 
 # Change channel according to operation mode
-if [ "$mode" = "a" ]; then
-	channel = "40"
+if [ "$mode" == "a" ]; then
+	channel="40"
 else
-	channel = "7"
+	channel="7"
 fi
 
 # Edit hostapd configuration file  with saved values
